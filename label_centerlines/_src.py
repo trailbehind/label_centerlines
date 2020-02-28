@@ -65,8 +65,13 @@ def get_centerline(
 
         # calculate Voronoi diagram and convert to graph but only use points
         # from within the original polygon
-        vor = Voronoi(outline_points)
-        graph = _graph_from_voronoi(vor, geom)
+        try:
+            vor = Voronoi(outline_points)
+            graph = _graph_from_voronoi(vor, geom)
+        except Exception:
+            logger.debug("Voronoi diagram could not be created")
+            raise CenterlineError("Voronoi diagram could not be created")
+
         logger.debug(
             "voronoi diagram: %s", _multilinestring_from_voronoi(vor, geom)
         )
