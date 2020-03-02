@@ -42,7 +42,7 @@ def get_centerline(
     Raises:
     -------
     CenterlineError : if centerline cannot be extracted from Polygon
-    TypeError : if input geometry is not Polygon or MultiPolygon
+    CenterlineError : if input geometry is not Polygon or MultiPolygon
 
     """
     logger.debug("geometry type %s", geom.geom_type)
@@ -124,7 +124,7 @@ def get_centerline(
             raise CenterlineError("all subgeometries failed")
 
     else:
-        raise TypeError(
+        raise CenterlineError(
             "Geometry type must be Polygon or MultiPolygon, not %s" %
             geom.geom_type
         )
